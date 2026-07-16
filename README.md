@@ -40,6 +40,15 @@
 
 ---
 
+# ⚡ Highlights
+
+- Public deployment on Render
+- Interactive Swagger/OpenAPI documentation
+- Dockerized application
+- 10,355 sample payment events
+- Fully automated database migrations
+- 7 automated tests passing
+
 # 📖 Overview
 
 This project implements a **production-ready Payment Reconciliation Service** capable of ingesting payment lifecycle events, maintaining transaction state, preserving event history, and exposing operational APIs for reconciliation reporting.
@@ -74,50 +83,52 @@ The system is designed with production engineering practices in mind, including:
 
 ## Swagger Documentation
 
-> Replace with screenshot before submission
-
 ```
-docs/images/swagger.png
+<p align="center">
+  <img src="docs/images/swagger.png" width="95%" alt="Swagger UI"/>
+</p>
+
 ```
 
 ---
 
 ## Transaction APIs
 
-> Replace with screenshot before submission
-
 ```
-docs/images/transactions.png
+<p align="center">
+  <img src="docs/images/transactions.png" width="95%" alt="Swagger UI"/>
+</p>
 ```
 
 ---
 
 ## Reconciliation APIs
 
-> Replace with screenshot before submission
-
 ```
-docs/images/reconciliation.png
+<p align="center">
+  <img src="docs/images/reconciliation.png" width="95%" alt="Swagger UI"/>
+</p>
+
 ```
 
 ---
 
 ## Docker Deployment
 
-> Replace with screenshot before submission
-
 ```
-docs/images/docker.png
+<p align="center">
+  <img src="docs/images/docker.png" width="95%" alt="Swagger UI"/>
+</p>
 ```
 
 ---
 
 ## Render Deployment
 
-> Replace with screenshot before submission
-
 ```
-docs/images/render.png
+<p align="center">
+  <img src="docs/images/render.png" width="95%" alt="Swagger UI"/>
+</p>
 ```
 
 ---
@@ -190,119 +201,18 @@ docs/images/render.png
 
 ---
 
-# 📁 Project Structure
-
-```text
-payment-reconciliation-service/
-│
-├── alembic/                         # Database migrations
-│   ├── versions/
-│   └── env.py
-│
-├── app/
-│   ├── models/                      # SQLAlchemy models
-│   ├── routes/                      # API endpoints
-│   ├── schemas/                     # Pydantic schemas
-│   ├── services/                    # Business logic
-│   ├── database.py                  # Database configuration
-│   ├── crud.py                      # Database operations
-│   ├── state_machine.py             # Payment lifecycle rules
-│   ├── config.py                    # Environment configuration
-│   └── main.py                      # FastAPI application
-│
-├── sample_data/
-│   └── sample_events.json
-│
-├── tests/
-│   ├── test_events.py
-│   ├── test_transactions.py
-│   └── test_reconciliation.py
-│
-├── Dockerfile
-├── docker-compose.yml
-├── start.sh
-├── requirements.txt
-├── alembic.ini
-├── .env.example
-└── README.md
-```
-
----
-
 # 🏛 Engineering Decisions
 
-This project was designed with a focus on simplicity, maintainability, and production-readiness while staying within the scope of the assignment.
+The project emphasizes simplicity, maintainability, and production-readiness through the following design decisions:
 
-
-
-The following design decisions were made to keep the service simple, maintainable, and production-ready:
-
-- **Layered Architecture** — Separated routes, services, CRUD, and models for clear separation of concerns.
-- **State Machine Validation** — Enforces valid payment lifecycle transitions and prevents invalid state updates.
-- **Idempotent Event Processing** — Duplicate events are ignored using a unique `event_id`, ensuring safe retries.
-- **Event History Preservation** — Every payment event is stored to provide a complete audit trail.
-- **Normalized Database Schema** — Separate merchant, transaction, and event tables minimize redundancy and simplify queries.
-- **SQL-first Querying** — Filtering, pagination, sorting, and reconciliation aggregations are performed directly in PostgreSQL.
-- **Automated Database Migrations** — Alembic manages schema versioning across environments.
-- **Containerized Deployment** — Docker and Docker Compose provide consistent local and cloud environments.
-
----
-
-## Layered Architecture
-
-The application follows a layered architecture to keep responsibilities well separated.
-
-```text
-                API Routes
-                    │
-                    ▼
-             Service Layer
-                    │
-                    ▼
-            CRUD / Repository
-                    │
-                    ▼
-              PostgreSQL Database
-```
-
-### Benefits
-
-- Clear separation of concerns
-- Easier unit testing
-- Better maintainability
-- Reusable business logic
-- Simplified API layer
-
----
-
-# 🔄 State Machine Validation
-
-Incoming events are validated before updating a transaction.
-
-This prevents invalid lifecycle transitions such as:
-
-❌ Settled → Payment Initiated
-
-❌ Failed → Processed
-
-❌ Settled → Failed
-
-Only valid transitions are allowed to update transaction state.
-
----
-
-# 🔒 Idempotency
-
-A key assignment requirement was ensuring duplicate events do not corrupt state.
-
-Implementation:
-
-- Every event contains a unique **event_id**
-- Duplicate event IDs are detected before processing
-- Existing transaction state remains unchanged
-- Event history remains consistent
-
-This guarantees safe retries from external systems.
+- **Layered Architecture** — Separates routes, services, CRUD, and models for clear separation of concerns.
+- **State Machine Validation** — Ensures only valid payment lifecycle transitions are accepted.
+- **Idempotent Event Processing** — Prevents duplicate event processing using a unique `event_id`.
+- **Event History Preservation** — Stores every event to maintain a complete audit trail.
+- **Normalized Database Design** — Separates merchants, transactions, and payment events for efficient querying.
+- **SQL-first Querying** — Filtering, pagination, sorting, and reconciliation are executed directly in PostgreSQL.
+- **Alembic Migrations** — Provides version-controlled schema management.
+- **Dockerized Deployment** — Ensures consistent local and cloud environments.
 
 ---
 
