@@ -72,40 +72,56 @@ The service emphasizes idempotent event processing, state-machine validation, SQ
 
 # 📸 Project Preview
 
-The following screenshots provide a quick overview of the deployed application, API documentation, testing, and deployment environment.
+The following screenshots provide a quick overview of the deployed application, API documentation, testing workflow, and deployment environment.
 
-### Swagger API Documentation
+---
+
+## 📖 Swagger API Documentation
+
+Interactive API documentation with all available endpoints and request/response schemas.
 
 <p align="center">
-  <img src="docs/swagger-ui.png" width="95%" alt="Swagger API Documentation"/>
+  <img src="docs/swagger.png" width="95%" alt="Swagger API Documentation"/>
 </p>
 
 ---
 
-### Transaction & Reconciliation APIs
+## 🚀 API Testing (Postman)
+
+Professional Postman collection demonstrating successful API requests and responses for all implemented endpoints.
 
 <p align="center">
-  <img src="docs/transactions.png" width="95%" alt="Transaction APIs"/>
-</p>
-
-<p align="center">
-  <img src="docs/reconciliation.png" width="95%" alt="Reconciliation APIs"/>
-</p>
-
----
-
-### Docker Environment
-
-<p align="center">
-  <img src="docs/docker.png" width="95%" alt="Docker Containers"/>
+  <img src="docs/postman.png" width="95%" alt="Postman Collection"/>
 </p>
 
 ---
 
-### Render Deployment
+## 🐳 Docker Environment
+
+Containerized deployment using Docker Compose with separate FastAPI and PostgreSQL services.
 
 <p align="center">
-  <img src="docs/render-deployment.png" width="95%" alt="Render Deployment"/>
+  <img src="docs/docker.png" width="95%" alt="Docker Environment"/>
+</p>
+
+---
+
+## ☁️ Render Deployment
+
+Public production deployment hosted on Render with automatic deployment from GitHub.
+
+<p align="center">
+  <img src="docs/render.png" width="95%" alt="Render Deployment"/>
+</p>
+
+---
+
+## ✅ Automated Testing
+
+Pytest test suite validating event ingestion, transaction APIs, and reconciliation logic.
+
+<p align="center">
+  <img src="docs/tests.png" width="95%" alt="Automated Tests"/>
 </p>
 
 ---
