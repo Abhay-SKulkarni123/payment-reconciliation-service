@@ -293,6 +293,17 @@ This guarantees safe retries from external systems.
 
 ---
 
+The following design decisions were made to keep the service simple, maintainable, and production-ready:
+
+- **Layered Architecture** — Separated routes, services, CRUD, and models for clear separation of concerns.
+- **State Machine Validation** — Enforces valid payment lifecycle transitions and prevents invalid state updates.
+- **Idempotent Event Processing** — Duplicate events are ignored using a unique `event_id`, ensuring safe retries.
+- **Event History Preservation** — Every payment event is stored to provide a complete audit trail.
+- **Normalized Database Schema** — Separate merchant, transaction, and event tables minimize redundancy and simplify queries.
+- **SQL-first Querying** — Filtering, pagination, sorting, and reconciliation aggregations are performed directly in PostgreSQL.
+- **Automated Database Migrations** — Alembic manages schema versioning across environments.
+- **Containerized Deployment** — Docker and Docker Compose provide consistent local and cloud environments.
+
 # 🧪 Testing Strategy
 
 The project includes automated API tests covering the primary workflows.
@@ -319,52 +330,6 @@ Expected result:
 =========================
 7 passed
 =========================
-```
-
----
-
-# 📈 Sample Dataset
-
-To evaluate performance and reconciliation logic, the project includes a realistic dataset.
-
-### Dataset Summary
-
-| Metric | Value |
-|---------|------:|
-| Total Events | 10,355 |
-| Merchants | 5 |
-| Successful Payments | ✓ |
-| Failed Payments | ✓ |
-| Duplicate Events | ✓ |
-| Pending Settlements | ✓ |
-| Reconciliation Issues | ✓ |
-
-The dataset can be loaded using:
-
-```bash
-python -m app.cli.load_sample_data
-```
-
----
-
-# 📮 Postman Collection
-
-The repository includes a ready-to-use Postman collection covering every endpoint.
-
-Import the collection and configure the base URL as:
-
-**Production**
-
-```
-https://payment-reconciliation-service-n4hn.onrender.com
-```
-
-or
-
-**Local**
-
-```
-http://localhost:8000
 ```
 
 ---
