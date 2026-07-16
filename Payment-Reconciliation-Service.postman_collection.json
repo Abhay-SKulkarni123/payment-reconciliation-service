@@ -1,0 +1,713 @@
+{
+  "info": {
+    "_postman_id": "ca827fcf-f118-40d9-904d-cdcd3c0989f7",
+    "name": "Payment Reconciliation Service",
+    "description": "Production-ready Payment Reconciliation Service built with FastAPI and PostgreSQL.\n\nThis collection demonstrates all required APIs for payment event ingestion, transaction retrieval, reconciliation reporting, and health monitoring.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "48261411",
+    "_collection_link": "https://go.postman.co/collection/48261411-ca827fcf-f118-40d9-904d-cdcd3c0989f7?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Health",
+      "item": [
+        {
+          "name": "Health Check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/health",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "health"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Health Check",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/health",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "health"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": ":status",
+                  "value": 200
+                },
+                {
+                  "key": "date",
+                  "value": "Thu, 16 Jul 2026 18:13:58 GMT"
+                },
+                {
+                  "key": "content-type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "content-length",
+                  "value": "41"
+                },
+                {
+                  "key": "content-encoding",
+                  "value": "br"
+                },
+                {
+                  "key": "rndr-id",
+                  "value": "6cc07a6b-c2d7-454c"
+                },
+                {
+                  "key": "server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "vary",
+                  "value": "Accept-Encoding"
+                },
+                {
+                  "key": "x-render-origin-server",
+                  "value": "uvicorn"
+                },
+                {
+                  "key": "cf-cache-status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "cf-ray",
+                  "value": "a1c2fbdd8e350789-BLR"
+                },
+                {
+                  "key": "alt-svc",
+                  "value": "h3=\":443\"; ma=86400"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"status\": \"healthy\",\n    \"database\": \"connected\"\n}"
+            }
+          ]
+        },
+        {
+          "name": "Root",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                ""
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Root",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    ""
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": ":status",
+                  "value": 200
+                },
+                {
+                  "key": "date",
+                  "value": "Thu, 16 Jul 2026 18:14:11 GMT"
+                },
+                {
+                  "key": "content-type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "content-length",
+                  "value": "54"
+                },
+                {
+                  "key": "content-encoding",
+                  "value": "br"
+                },
+                {
+                  "key": "rndr-id",
+                  "value": "3ee42273-8e91-41a5"
+                },
+                {
+                  "key": "server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "vary",
+                  "value": "Accept-Encoding"
+                },
+                {
+                  "key": "x-render-origin-server",
+                  "value": "uvicorn"
+                },
+                {
+                  "key": "cf-cache-status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "cf-ray",
+                  "value": "a1c2fc336c460789-BLR"
+                },
+                {
+                  "key": "alt-svc",
+                  "value": "h3=\":443\"; ma=86400"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"message\": \"Payment Reconciliation Service is running.\"\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Events",
+      "item": [
+        {
+          "name": "Ingest Payment Event",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"event_id\": \"postman-demo-001\",\r\n  \"event_type\": \"payment_initiated\",\r\n  \"transaction_id\": \"txn-postman-001\",\r\n  \"merchant_id\": \"merchant_demo\",\r\n  \"merchant_name\": \"Demo Merchant\",\r\n  \"amount\": 1250.75,\r\n  \"currency\": \"INR\",\r\n  \"timestamp\": \"2026-01-08T12:11:58Z\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/events",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "events"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Ingest Payment Event",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"event_id\": \"postman-demo-001\",\r\n  \"event_type\": \"payment_initiated\",\r\n  \"transaction_id\": \"txn-postman-001\",\r\n  \"merchant_id\": \"merchant_demo\",\r\n  \"merchant_name\": \"Demo Merchant\",\r\n  \"amount\": 1250.75,\r\n  \"currency\": \"INR\",\r\n  \"timestamp\": \"2026-01-08T12:11:58Z\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/events",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "events"
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": ":status",
+                  "value": 201
+                },
+                {
+                  "key": "date",
+                  "value": "Thu, 16 Jul 2026 18:10:48 GMT"
+                },
+                {
+                  "key": "content-type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "content-length",
+                  "value": "79"
+                },
+                {
+                  "key": "content-encoding",
+                  "value": "br"
+                },
+                {
+                  "key": "rndr-id",
+                  "value": "fd14feec-1c52-4fb1"
+                },
+                {
+                  "key": "server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "vary",
+                  "value": "Accept-Encoding"
+                },
+                {
+                  "key": "x-render-origin-server",
+                  "value": "uvicorn"
+                },
+                {
+                  "key": "cf-cache-status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "cf-ray",
+                  "value": "a1c2f73e1d08755c-BLR"
+                },
+                {
+                  "key": "alt-svc",
+                  "value": "h3=\":443\"; ma=86400"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"success\": true,\n    \"message\": \"Duplicate event ignored.\",\n    \"transaction_id\": \"txn-postman-001\"\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Transactions",
+      "item": [
+        {
+          "name": "Transactions",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/transactions",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "transactions"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Transactions",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/transactions",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "transactions"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": ":status",
+                  "value": 200
+                },
+                {
+                  "key": "date",
+                  "value": "Thu, 16 Jul 2026 18:14:28 GMT"
+                },
+                {
+                  "key": "content-type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "content-length",
+                  "value": "246"
+                },
+                {
+                  "key": "content-encoding",
+                  "value": "br"
+                },
+                {
+                  "key": "rndr-id",
+                  "value": "321bea8f-e63c-458a"
+                },
+                {
+                  "key": "server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "vary",
+                  "value": "Accept-Encoding"
+                },
+                {
+                  "key": "x-render-origin-server",
+                  "value": "uvicorn"
+                },
+                {
+                  "key": "cf-cache-status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "cf-ray",
+                  "value": "a1c2fc99e9820789-BLR"
+                },
+                {
+                  "key": "alt-svc",
+                  "value": "h3=\":443\"; ma=86400"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"total\": 2,\n    \"page\": 1,\n    \"page_size\": 20,\n    \"items\": [\n        {\n            \"transaction_id\": \"txn-postman-001\",\n            \"merchant\": {\n                \"merchant_id\": \"merchant_demo\",\n                \"merchant_name\": \"Demo Merchant\"\n            },\n            \"amount\": \"1250.75\",\n            \"currency\": \"INR\",\n            \"payment_status\": \"payment_initiated\",\n            \"settlement_status\": \"pending\",\n            \"created_at\": \"2026-07-16T17:59:36.350393Z\"\n        },\n        {\n            \"transaction_id\": \"txn-render-001\",\n            \"merchant\": {\n                \"merchant_id\": \"merchant_render\",\n                \"merchant_name\": \"Render Test Merchant\"\n            },\n            \"amount\": \"999.99\",\n            \"currency\": \"INR\",\n            \"payment_status\": \"payment_initiated\",\n            \"settlement_status\": \"pending\",\n            \"created_at\": \"2026-07-16T14:38:35.154731Z\"\n        }\n    ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "Transaction Details",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/transactions/{{transaction_id}}",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "transactions",
+                "{{transaction_id}}"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Transaction Details",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/transactions/{{transaction_id}}",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "transactions",
+                    "{{transaction_id}}"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": ":status",
+                  "value": 200
+                },
+                {
+                  "key": "date",
+                  "value": "Thu, 16 Jul 2026 18:14:37 GMT"
+                },
+                {
+                  "key": "content-type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "content-length",
+                  "value": "225"
+                },
+                {
+                  "key": "content-encoding",
+                  "value": "br"
+                },
+                {
+                  "key": "rndr-id",
+                  "value": "34ba5b63-6e65-4000"
+                },
+                {
+                  "key": "server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "vary",
+                  "value": "Accept-Encoding"
+                },
+                {
+                  "key": "x-render-origin-server",
+                  "value": "uvicorn"
+                },
+                {
+                  "key": "cf-cache-status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "cf-ray",
+                  "value": "a1c2fcd13f6e0789-BLR"
+                },
+                {
+                  "key": "alt-svc",
+                  "value": "h3=\":443\"; ma=86400"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"transaction_id\": \"txn-render-001\",\n    \"merchant\": {\n        \"merchant_id\": \"merchant_render\",\n        \"merchant_name\": \"Render Test Merchant\"\n    },\n    \"amount\": \"999.99\",\n    \"currency\": \"INR\",\n    \"payment_status\": \"payment_initiated\",\n    \"settlement_status\": \"pending\",\n    \"created_at\": \"2026-07-16T14:38:35.154731Z\",\n    \"updated_at\": \"2026-07-16T14:38:35.154731Z\",\n    \"event_history\": [\n        {\n            \"event_id\": \"render-test-001\",\n            \"event_type\": \"payment_initiated\",\n            \"timestamp\": \"2026-01-08T12:11:58Z\"\n        }\n    ]\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Reconciliation",
+      "item": [
+        {
+          "name": "Reconciliation Summary",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/reconciliation/summary",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "reconciliation",
+                "summary"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Reconciliation Summary",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/reconciliation/summary",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "reconciliation",
+                    "summary"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": ":status",
+                  "value": 200
+                },
+                {
+                  "key": "date",
+                  "value": "Thu, 16 Jul 2026 18:14:55 GMT"
+                },
+                {
+                  "key": "content-type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "content-length",
+                  "value": "132"
+                },
+                {
+                  "key": "content-encoding",
+                  "value": "br"
+                },
+                {
+                  "key": "rndr-id",
+                  "value": "911a9e88-d53b-4c1c"
+                },
+                {
+                  "key": "server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "vary",
+                  "value": "Accept-Encoding"
+                },
+                {
+                  "key": "x-render-origin-server",
+                  "value": "uvicorn"
+                },
+                {
+                  "key": "cf-cache-status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "cf-ray",
+                  "value": "a1c2fd4488210789-BLR"
+                },
+                {
+                  "key": "alt-svc",
+                  "value": "h3=\":443\"; ma=86400"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"items\": [\n        {\n            \"merchant_id\": \"merchant_render\",\n            \"merchant_name\": \"Render Test Merchant\",\n            \"total_transactions\": 1,\n            \"processed\": 0,\n            \"failed\": 0,\n            \"settled\": 0,\n            \"pending_settlement\": 1\n        },\n        {\n            \"merchant_id\": \"merchant_demo\",\n            \"merchant_name\": \"Demo Merchant\",\n            \"total_transactions\": 1,\n            \"processed\": 0,\n            \"failed\": 0,\n            \"settled\": 0,\n            \"pending_settlement\": 1\n        }\n    ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "Reconciliation Discrepancies",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/reconciliation/discrepancies",
+              "host": [
+                "{{base_url}}"
+              ],
+              "path": [
+                "reconciliation",
+                "discrepancies"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Reconciliation Discrepancies",
+              "originalRequest": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/reconciliation/discrepancies",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "reconciliation",
+                    "discrepancies"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": [
+                {
+                  "key": ":status",
+                  "value": 200
+                },
+                {
+                  "key": "date",
+                  "value": "Thu, 16 Jul 2026 18:15:10 GMT"
+                },
+                {
+                  "key": "content-type",
+                  "value": "application/json"
+                },
+                {
+                  "key": "content-length",
+                  "value": "16"
+                },
+                {
+                  "key": "content-encoding",
+                  "value": "br"
+                },
+                {
+                  "key": "rndr-id",
+                  "value": "617c1917-8919-4dcf"
+                },
+                {
+                  "key": "server",
+                  "value": "cloudflare"
+                },
+                {
+                  "key": "vary",
+                  "value": "Accept-Encoding"
+                },
+                {
+                  "key": "x-render-origin-server",
+                  "value": "uvicorn"
+                },
+                {
+                  "key": "cf-cache-status",
+                  "value": "DYNAMIC"
+                },
+                {
+                  "key": "cf-ray",
+                  "value": "a1c2fda31cda0789-BLR"
+                },
+                {
+                  "key": "alt-svc",
+                  "value": "h3=\":443\"; ma=86400"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n    \"items\": []\n}"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "https://payment-reconciliation-service-n4hn.onrender.com"
+    },
+    {
+      "key": "transaction_id",
+      "value": "txn-render-001"
+    }
+  ]
+}
