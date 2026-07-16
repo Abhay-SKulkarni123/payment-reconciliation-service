@@ -342,18 +342,18 @@ Expected result:
 
 Solutions Engineer Take-Home Assignment
 
-GitHub: **<ADD_GITHUB_PROFILE>**
-
-LinkedIn: **<ADD_LINKEDIN_PROFILE>**
+GitHub: https://github.com/Abhay-SKulkarni123
+LinkedIn: https://www.linkedin.com/in/abhaysk040304/
+Portfolio : https://portfolio-wheat-ten-27.vercel.app/
+Email : abhayskulkarni11@gmail.com
+Phone : +91 9353656880
 
 ---
 
 <div align="center">
 
-### ⭐ Thank you for reviewing this project!
+### ⭐ Thank you for taking the time to review this submission.
 
-If you have any questions or feedback, feel free to reach out.
-
-Built with ❤️ using FastAPI, PostgreSQL, SQLAlchemy, Alembic, Docker, and Render.
+Built with FastAPI, PostgreSQL, SQLAlchemy, Alembic, Docker, and Render.
 
 </div>
