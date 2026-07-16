@@ -36,7 +36,7 @@
 | **Health Endpoint** | https://payment-reconciliation-service-n4hn.onrender.com/health |
 | **GitHub Repository** | https://github.com/Abhay-SKulkarni123/payment-reconciliation-service |
 | **Postman Collection** | https://github.com/Abhay-SKulkarni123/payment-reconciliation-service/blob/main/Payment-Reconciliation-Service.postman_collection.json |
-| **Demo Video** | **<ADD_LOOM_OR_YOUTUBE_LINK>** |
+| **Demo Video** |  |
 
 ---
 
