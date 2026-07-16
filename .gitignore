@@ -31,3 +31,18 @@ Thumbs.db
 
 # Logs
 *.log
+
+.venv/
+.pytest_cache/
+__pycache__/
+*.pyc
+*.pyo
+
+.env
+*.db
+
+.vscode/
+.idea/
+
+.coverage
+htmlcov/
