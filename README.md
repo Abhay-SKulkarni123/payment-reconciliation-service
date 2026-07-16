@@ -34,7 +34,7 @@
 | **Live API** | https://payment-reconciliation-service-n4hn.onrender.com |
 | **Swagger Documentation** | https://payment-reconciliation-service-n4hn.onrender.com/docs |
 | **Health Endpoint** | https://payment-reconciliation-service-n4hn.onrender.com/health |
-| **GitHub Repository** | **<ADD_GITHUB_REPOSITORY_LINK>** |
+| **GitHub Repository** | https://github.com/Abhay-SKulkarni123/payment-reconciliation-service |
 | **Postman Collection** | **<ADD_POSTMAN_LINK>** |
 | **Demo Video** | **<ADD_LOOM_OR_YOUTUBE_LINK>** |
 
