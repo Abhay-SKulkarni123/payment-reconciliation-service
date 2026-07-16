@@ -51,18 +51,9 @@
 
 # 📖 Overview
 
-This project implements a **production-ready Payment Reconciliation Service** capable of ingesting payment lifecycle events, maintaining transaction state, preserving event history, and exposing operational APIs for reconciliation reporting.
+This project implements a production-ready Payment Reconciliation Service capable of ingesting payment lifecycle events, maintaining transaction state, preserving event history, and exposing reconciliation APIs.
 
-The system is designed with production engineering practices in mind, including:
-
-- Idempotent event ingestion
-- Transaction state management
-- Event sourcing approach
-- SQL-optimized querying
-- Automatic database migrations
-- Containerized deployment
-- Public cloud deployment
-- Comprehensive API documentation
+The service emphasizes idempotent event processing, state-machine validation, SQL-optimized querying, automated database migrations, Dockerized deployment, and public cloud hosting on Render.
 
 ---
 
@@ -83,7 +74,7 @@ The system is designed with production engineering practices in mind, including:
 
 ## Swagger Documentation
 
-```
+```html
 <p align="center">
   <img src="docs/images/swagger.png" width="95%" alt="Swagger UI"/>
 </p>
@@ -94,7 +85,7 @@ The system is designed with production engineering practices in mind, including:
 
 ## Transaction APIs
 
-```
+```html
 <p align="center">
   <img src="docs/images/transactions.png" width="95%" alt="Swagger UI"/>
 </p>
@@ -104,7 +95,7 @@ The system is designed with production engineering practices in mind, including:
 
 ## Reconciliation APIs
 
-```
+```html
 <p align="center">
   <img src="docs/images/reconciliation.png" width="95%" alt="Swagger UI"/>
 </p>
@@ -115,7 +106,7 @@ The system is designed with production engineering practices in mind, including:
 
 ## Docker Deployment
 
-```
+```html
 <p align="center">
   <img src="docs/images/docker.png" width="95%" alt="Swagger UI"/>
 </p>
@@ -125,7 +116,7 @@ The system is designed with production engineering practices in mind, including:
 
 ## Render Deployment
 
-```
+```html
 <p align="center">
   <img src="docs/images/render.png" width="95%" alt="Swagger UI"/>
 </p>
