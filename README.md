@@ -155,7 +155,7 @@ docs/images/render.png
 
 ---
 
-# 🏗 High Level Architecture
+# 🏗 Architecture
 
 ```text
                          Client / Partner System
@@ -262,20 +262,6 @@ payment-reconciliation-service/
 
 ---
 
-# 🧩 Component Responsibilities
-
-| Component | Responsibility |
-|-----------|----------------|
-| **Routes** | HTTP request handling and response generation |
-| **Schemas** | Input validation and API response models |
-| **Services** | Business logic and transaction orchestration |
-| **CRUD Layer** | Database access and SQL operations |
-| **Models** | SQLAlchemy entity definitions |
-| **State Machine** | Payment lifecycle validation |
-| **Alembic** | Database schema migrations |
-
----
-
 # 🗄 Database Design
 
 The database is normalized into three primary entities.
@@ -335,71 +321,6 @@ The service validates all incoming events using a state machine to prevent inval
                        ▼
                      settled
 ```
-
-### Valid Transitions
-
-| Current State | Allowed Next State |
-|---------------|-------------------|
-| payment_initiated | payment_processed, payment_failed |
-| payment_processed | settled |
-| payment_failed | *(terminal state)* |
-| settled | *(terminal state)* |
-
-Invalid transitions are detected and recorded without corrupting the transaction state.
-
----
-
-# 🔁 Event Processing Flow
-
-```text
-Incoming Event
-       │
-       ▼
-Request Validation
-       │
-       ▼
-Duplicate Event Check
-       │
-       ├──────────────► Duplicate?
-       │                    │
-       │                    ▼
-       │            Return Existing Response
-       │
-       ▼
-Merchant Lookup / Creation
-       │
-       ▼
-Transaction Lookup / Creation
-       │
-       ▼
-State Machine Validation
-       │
-       ▼
-Persist Event History
-       │
-       ▼
-Update Transaction State
-       │
-       ▼
-Return API Response
-```
-
----
-
-# 📈 Database Optimizations
-
-To support efficient querying and reconciliation reports, the following strategies are used:
-
-- Indexed transaction identifiers
-- Indexed merchant identifiers
-- Indexed payment status
-- Indexed settlement status
-- Indexed event identifiers for idempotency
-- Foreign key relationships for referential integrity
-- SQL-based pagination and filtering
-- SQL aggregation for reconciliation summaries
-
----
 
 # ⚙️ Getting Started
 
@@ -579,30 +500,6 @@ The application is deployed on **Render**.
 
 ---
 
-# 📦 Database Migrations
-
-Alembic is used for schema versioning.
-
-Upgrade database
-
-```bash
-alembic upgrade head
-```
-
-Create migration
-
-```bash
-alembic revision --autogenerate -m "description"
-```
-
-Downgrade
-
-```bash
-alembic downgrade -1
-```
-
----
-
 # 🧪 Running Tests
 
 Execute the complete test suite.
@@ -662,49 +559,6 @@ Expected response
     "status": "healthy",
     "database": "connected"
 }
-```
-
----
-
-# 📸 Setup Verification
-
-Replace these placeholders with screenshots before submission.
-
-| Screenshot | File |
-|------------|------|
-| Docker Containers | docs/images/docker-containers.png |
-| Swagger UI | docs/images/swagger.png |
-| Health Endpoint | docs/images/health.png |
-| Render Dashboard | docs/images/render-dashboard.png |
-| Render Deployment Logs | docs/images/render-logs.png |
-
----
-
-# 💡 Development Workflow
-
-```text
-Clone Repository
-        │
-        ▼
-Install Dependencies
-        │
-        ▼
-Configure .env
-        │
-        ▼
-Run Alembic Migrations
-        │
-        ▼
-Start FastAPI
-        │
-        ▼
-Run Tests
-        │
-        ▼
-Load Sample Data (Optional)
-        │
-        ▼
-Begin Development
 ```
 
 ---
@@ -999,22 +853,6 @@ Invalid transitions are rejected while preserving the existing transaction state
 
 ---
 
-# ⚠️ Error Handling
-
-The API uses conventional HTTP status codes.
-
-| Status | Meaning |
-|---------|---------|
-| 200 | Request successful |
-| 201 | Resource created |
-| 400 | Invalid state transition |
-| 404 | Resource not found |
-| 409 | Duplicate event detected |
-| 422 | Validation error |
-| 500 | Internal server error |
-
----
-
 # 📮 Postman Collection
 
 A ready-to-use Postman collection containing all API endpoints is included with this repository.
@@ -1082,22 +920,6 @@ This avoids duplicated merchant data while preserving a complete audit trail for
 
 ---
 
-# 📚 Event Sourcing Approach
-
-Rather than overwriting transaction information, every incoming payment event is stored permanently.
-
-Benefits include:
-
-- Complete audit history
-- Easier debugging
-- Transaction replay capability
-- Better reconciliation
-- Historical reporting
-
-The **transactions** table stores the latest snapshot, while **payment_events** preserves the complete timeline.
-
----
-
 # 🔄 State Machine Validation
 
 Incoming events are validated before updating a transaction.
@@ -1126,38 +948,6 @@ Implementation:
 - Event history remains consistent
 
 This guarantees safe retries from external systems.
-
----
-
-# 📊 SQL Query Optimization
-
-Filtering, sorting, pagination, and aggregation are performed directly in PostgreSQL instead of Python.
-
-Examples include:
-
-- Merchant filtering
-- Payment status filtering
-- Date range filtering
-- Pagination
-- Reconciliation summaries
-
-This keeps API responses efficient even with large datasets.
-
----
-
-# 🚀 Database Indexes
-
-Indexes are created on frequently queried columns.
-
-| Column | Purpose |
-|----------|----------|
-| event_id | Duplicate detection |
-| transaction_id | Transaction lookup |
-| merchant_id | Merchant filtering |
-| payment_status | Status filtering |
-| settlement_status | Reconciliation queries |
-
-These indexes significantly improve lookup and reporting performance.
 
 ---
 
@@ -1215,18 +1005,6 @@ python -m app.cli.load_sample_data
 
 ---
 
-# ⚖ Assumptions
-
-The following assumptions were made while implementing the service.
-
-- Every event contains a globally unique **event_id**.
-- Every transaction belongs to a single merchant.
-- Settlement events refer to an existing transaction.
-- Events arrive individually through the REST API.
-- Payment lifecycle follows the implemented state machine.
-
----
-
 # 🤝 Trade-offs
 
 To keep the implementation focused on the assignment requirements, the following features were intentionally excluded.
@@ -1242,53 +1020,6 @@ To keep the implementation focused on the assignment requirements, the following
 | Multi-region deployment | Outside scope |
 
 These would be natural additions in a production-scale system.
-
----
-
-# 📈 Performance Considerations
-
-Several implementation choices were made with scalability in mind.
-
-- SQL-based filtering
-- SQL-based aggregation
-- Indexed lookups
-- Normalized schema
-- Pagination support
-- Lightweight API responses
-- Stateless FastAPI application
-- Dockerized deployment
-
----
-
-# 🌟 Future Improvements
-
-With additional development time, the following enhancements would be valuable.
-
-### Infrastructure
-
-- Kubernetes deployment
-- CI/CD pipeline
-- GitHub Actions
-- Terraform infrastructure
-
-### Backend
-
-- JWT Authentication
-- Role-Based Access Control (RBAC)
-- Async event processing
-- Kafka / RabbitMQ integration
-- Redis caching
-- Rate limiting
-- Metrics collection
-- OpenTelemetry tracing
-
-### Monitoring
-
-- Prometheus
-- Grafana dashboards
-- Structured logging
-- Alerting
-- Centralized log aggregation
 
 ---
 
