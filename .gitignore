@@ -1,48 +1,55 @@
+# ===========================
 # Python
+# ===========================
 __pycache__/
 *.py[cod]
 *.pyo
 *.pyd
 
-# Virtual Environment
+# ===========================
+# Virtual Environments
+# ===========================
 .venv/
 venv/
 
-# Environment variables
+# ===========================
+# Environment Variables
+# ===========================
 .env
+.env.local
+.env.*.local
 
+# ===========================
+# Database
+# ===========================
+*.db
+*.sqlite3
+
+# ===========================
 # IDE
+# ===========================
 .vscode/
 .idea/
 
-# Pytest
+# ===========================
+# Testing
+# ===========================
 .pytest_cache/
-
-# Coverage
 .coverage
 htmlcov/
 
-# Alembic cache
-*.pyc
+# ===========================
+# Logs
+# ===========================
+*.log
 
-# OS
+# ===========================
+# OS Files
+# ===========================
 .DS_Store
 Thumbs.db
 
-# Logs
-*.log
-
-.venv/
-.pytest_cache/
-__pycache__/
-*.pyc
-*.pyo
-
-.env
-*.db
-
-.vscode/
-.idea/
-
-.coverage
-htmlcov/
+# ===========================
+# Misc
+# ===========================
+.cache/
