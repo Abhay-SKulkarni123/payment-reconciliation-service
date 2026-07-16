@@ -35,7 +35,7 @@
 | **Swagger Documentation** | https://payment-reconciliation-service-n4hn.onrender.com/docs |
 | **Health Endpoint** | https://payment-reconciliation-service-n4hn.onrender.com/health |
 | **GitHub Repository** | https://github.com/Abhay-SKulkarni123/payment-reconciliation-service |
-| **Postman Collection** | **<ADD_POSTMAN_LINK>** |
+| **Postman Collection** | ./Payment-Reconciliation-Service.postman_collection.json |
 | **Demo Video** | **<ADD_LOOM_OR_YOUTUBE_LINK>** |
 
 ---
@@ -72,55 +72,41 @@ The service emphasizes idempotent event processing, state-machine validation, SQ
 
 # 📸 Project Preview
 
-## Swagger Documentation
+The following screenshots provide a quick overview of the deployed application, API documentation, testing, and deployment environment.
 
-```html
+### Swagger API Documentation
+
 <p align="center">
-  <img src="docs/images/swagger.png" width="95%" alt="Swagger UI"/>
+  <img src="docs/swagger-ui.png" width="95%" alt="Swagger API Documentation"/>
 </p>
-
-```
 
 ---
 
-## Transaction APIs
+### Transaction & Reconciliation APIs
 
-```html
 <p align="center">
-  <img src="docs/images/transactions.png" width="95%" alt="Swagger UI"/>
+  <img src="docs/transactions.png" width="95%" alt="Transaction APIs"/>
 </p>
-```
+
+<p align="center">
+  <img src="docs/reconciliation.png" width="95%" alt="Reconciliation APIs"/>
+</p>
 
 ---
 
-## Reconciliation APIs
+### Docker Environment
 
-```html
 <p align="center">
-  <img src="docs/images/reconciliation.png" width="95%" alt="Swagger UI"/>
+  <img src="docs/docker.png" width="95%" alt="Docker Containers"/>
 </p>
-
-```
 
 ---
 
-## Docker Deployment
+### Render Deployment
 
-```html
 <p align="center">
-  <img src="docs/images/docker.png" width="95%" alt="Swagger UI"/>
+  <img src="docs/render-deployment.png" width="95%" alt="Render Deployment"/>
 </p>
-```
-
----
-
-## Render Deployment
-
-```html
-<p align="center">
-  <img src="docs/images/render.png" width="95%" alt="Swagger UI"/>
-</p>
-```
 
 ---
 
