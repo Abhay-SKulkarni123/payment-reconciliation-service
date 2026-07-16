@@ -59,47 +59,14 @@ The system is designed with production engineering practices in mind, including:
 
 # ✨ Features
 
-### Payment Processing
-
-- ✅ Idempotent payment event ingestion
-- ✅ Duplicate event detection
-- ✅ Payment lifecycle state management
-- ✅ Event history preservation
-- ✅ Merchant normalization
-
----
-
-### Transaction APIs
-
-- ✅ Transaction listing
-- ✅ Merchant filtering
-- ✅ Payment status filtering
-- ✅ Date range filtering
-- ✅ Pagination
-- ✅ Sorting
-- ✅ Detailed transaction history
-
----
-
-### Reconciliation
-
-- ✅ Merchant reconciliation summary
-- ✅ Settlement status tracking
-- ✅ Reconciliation discrepancy detection
-- ✅ Invalid state transition detection
-
----
-
-### Engineering
-
-- ✅ PostgreSQL database
-- ✅ SQLAlchemy ORM
-- ✅ Alembic migrations
-- ✅ Docker support
-- ✅ Docker Compose
-- ✅ Automated tests
-- ✅ Public Render deployment
-- ✅ Swagger / OpenAPI documentation
+- ✅ Idempotent payment event ingestion with duplicate detection
+- ✅ Transaction management with filtering, pagination, and sorting
+- ✅ Reconciliation summary and discrepancy detection
+- ✅ Payment lifecycle validation using a state machine
+- ✅ PostgreSQL + SQLAlchemy + Alembic
+- ✅ Dockerized deployment with Docker Compose
+- ✅ Automated API testing with Pytest
+- ✅ Public deployment with interactive Swagger/OpenAPI documentation
 
 ---
 
@@ -264,44 +231,29 @@ payment-reconciliation-service/
 
 # 🗄 Database Design
 
-The database is normalized into three primary entities.
+The database follows a normalized relational design with three core entities.
 
 ```text
-                    ┌────────────────────┐
-                    │     merchants      │
-                    ├────────────────────┤
-                    │ merchant_id (PK)   │
-                    │ merchant_name      │
-                    └─────────┬──────────┘
-                              │ 1
-                              │
-                              │ N
-                    ┌─────────▼──────────┐
-                    │    transactions    │
-                    ├────────────────────┤
-                    │ id (PK)            │
-                    │ transaction_id     │
-                    │ merchant_id (FK)   │
-                    │ amount             │
-                    │ currency           │
-                    │ payment_status     │
-                    │ settlement_status  │
-                    │ created_at         │
-                    │ updated_at         │
-                    └─────────┬──────────┘
-                              │ 1
-                              │
-                              │ N
-                    ┌─────────▼──────────┐
-                    │   payment_events   │
-                    ├────────────────────┤
-                    │ event_id (PK)      │
-                    │ transaction_id(FK) │
-                    │ event_type         │
-                    │ timestamp          │
-                    │ raw_payload        │
-                    └────────────────────┘
+                    ┌───────────────┐
+                    │   Merchants   │
+                    └───────┬───────┘
+                            │ 1
+                            │
+                            │ N
+                    ┌───────▼────────┐
+                    │ Transactions   │
+                    └───────┬────────┘
+                            │ 1
+                            │
+                            │ N
+                    ┌───────▼────────┐
+                    │ Payment Events │
+                    └────────────────┘
 ```
+
+- **Merchants** store merchant information.
+- **Transactions** maintain the latest payment and settlement state.
+- **Payment Events** preserve the complete event history for auditing and reconciliation.
 
 ---
 
@@ -485,18 +437,6 @@ Swagger
 ```
 http://localhost:8001/docs
 ```
-
----
-
-# ☁️ Public Deployment
-
-The application is deployed on **Render**.
-
-| Resource | URL |
-|----------|-----|
-| Live API | https://payment-reconciliation-service-n4hn.onrender.com |
-| Swagger | https://payment-reconciliation-service-n4hn.onrender.com/docs |
-| Health Check | https://payment-reconciliation-service-n4hn.onrender.com/health |
 
 ---
 
